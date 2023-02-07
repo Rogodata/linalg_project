@@ -6,6 +6,22 @@
 template <typename T>
 struct Row
 {
+    Row()
+    {
+        //default constructor
+        a = float(0);
+        b = float(0);
+        c = float(0);
+    };
+
+    Row(T a, T b, T c)
+    {
+        // constructor with parameters
+        this->a = a;
+        this->b = b;
+        this->c = c;
+    };
+
     T a, b, c;
 };
 
@@ -22,26 +38,32 @@ public:
         else
         {
             this->n_parameter = size - 1;
+            rows.resize(0);
         }
     };
 
-    std::ifstream &read_data(std::ifstream &file_stream, std::string file_name)
+    void read_data(std::string file_name)
     {
+        std::ifstream file_stream;
         file_stream.open(file_name);
-        file_stream >> rows[0].b >> rows[0].c;
+        T a_number, b_number, c_number;
+        file_stream >> b_number >> c_number;
+        rows.push_back(Row(float(0), b_number, c_number));
         for (int i = 1; i < n_parameter; i++)
         {
-            file_stream >>
-                rows[i].b >> rows[i].c >> rows[i].c;
+            file_stream >> a_number >> b_number >> c_number;
+            rows.push_back(Row(a_number, b_number, c_number));
+            std::cout << rows[i].a << rows[i].b << rows[i].c << std::endl;
         }
-        file_stream >> std::stof(rows[n_parameter].b) >> std::stof(rows[n_parameter].c);
+        file_stream >> a_number >> b_number;
+        rows.push_back(Row(a_number, b_number, float(0)));
         file_stream.close();
-        return file_stream;
     }
 
     std::vector<T> get_solution(T *answers_array)
     {
         // Не очень здорово, что я просто подаю указатель на массив данных, но думаю, так быстрее чем с вектором
+        //К тому, предполагается, что я доверяю поданному столбцу свободных членов
         std::vector<T> result_array;
         T *p = new T[n_parameter + 1];
         T *q = new T[n_parameter + 1];
@@ -64,17 +86,21 @@ public:
         return result_array;
     }
 
+    //вектор строк надо будет убрать в private
+    std::vector<Row<T>> rows;
+
 private:
     // поле n_parameter здесь на 1 меньше реального размера матрицы. Сделано для удобства отсчёта элементов с нуля.
     unsigned int n_parameter;
-    std::vector<Row<T>> rows;
 };
 
 int main()
 {
-    TridiagonalMatrix test_matrix = TridiagonalMatrix<int>(4);
-    std::ifstream fout("/home/rogoda/atom_projects_ubuntu/assembly_labs/lab_5/6_2.txt", std::ios::app);
-    fout << pi << " " << i << std::endl; // запись строки в файл
-    test_matrix.read_data();
+    TridiagonalMatrix test_matrix = TridiagonalMatrix<float>(4);
+    test_matrix.read_data("test_1.txt");
+    for (int i = 0; i < 4; i++)
+    {
+        std::cout << test_matrix.rows[i].a << " " << test_matrix.rows[i].b << " " << test_matrix.rows[i].c << std::endl;
+    }
     return 0;
 }
