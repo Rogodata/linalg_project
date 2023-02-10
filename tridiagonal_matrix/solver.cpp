@@ -109,7 +109,7 @@ int main()
     test_matrix.read_data("test_1.txt");
     // выведем матрицу
     std::cout << test_matrix << std::endl;
-    float d_array[4] = {1, 15, 7, 1};
+    float d_array[4] = {1, 15, 9, 1};
     // решаем
     std::vector<float> result = test_matrix.get_solution(d_array);
     // выводим решение
