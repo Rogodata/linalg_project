@@ -1,11 +1,7 @@
-cmake_minimum_required(VERSION 3.0.0)
-project(Linalg_project VERSION 0.1.0)
+cmake_minimum_required(VERSION 3.22)
+project(Linalg_project)
 
-include(CTest)
-enable_testing()
 
-add_executable(Linalg_project main.cpp)
-
-set(CPACK_PROJECT_NAME ${PROJECT_NAME})
-set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
-include(CPack)
+set(CMAKE_CXX_STANDARD 23)
+add_subdirectory(test)
+add_subdirectory(source)
