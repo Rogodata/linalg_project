@@ -12,9 +12,9 @@ struct Row
     Row()
     {
         // default constructor
-        a = float(0);
-        b = float(0);
-        c = float(0);
+        a = 0;
+        b = 0;
+        c = 0;
     };
 
     Row(T a, T b, T c)
@@ -32,24 +32,31 @@ template <typename T>
 class TridiagonalMatrix
 {
 public:
-    TridiagonalMatrix(unsigned int size, std::string file_name)
+    TridiagonalMatrix(const unsigned int size, const std::string file_name)
     {
         this->n_parameter = size - 1;
         rows.resize(0);
         std::ifstream file_stream;
         file_stream.open(file_name);
-        T a_number, b_number, c_number;
+        T a_number, b_number, c_number, zero = 0;
         file_stream >> b_number >> c_number;
-        rows.push_back(Row(float(0), b_number, c_number));
+        rows.push_back(Row(zero, b_number, c_number));
         for (int i = 1; i < n_parameter; i++)
         {
             file_stream >> a_number >> b_number >> c_number;
             rows.push_back(Row(a_number, b_number, c_number));
         }
         file_stream >> a_number >> b_number;
-        rows.push_back(Row(a_number, b_number, float(0)));
+        rows.push_back(Row(a_number, b_number, zero));
         file_stream.close();
     };
+
+    TridiagonalMatrix(const unsigned int size, const std::vector<Row<T>> rows_array)
+    {
+        this->n_parameter = size - 1;
+        rows = rows_array;
+    };
+
 
     void read_data(const std::string file_name)
     {

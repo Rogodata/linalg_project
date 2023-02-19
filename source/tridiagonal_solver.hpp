@@ -5,7 +5,7 @@
 
 
 template<typename T>
-std::vector<T> get_solution(const std::vector<T> answers_array,const TridiagonalMatrix<T>& matrix)
+std::vector<T> tridiagonal_solution(const std::vector<T> answers_array,const TridiagonalMatrix<T>& matrix)
 {
     std::vector<T> q, p, result_array;
     result_array.resize(matrix.get_n() + 1);
