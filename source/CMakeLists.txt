@@ -6,4 +6,3 @@ set(CMAKE_CXX_STANDARD 23)
 file(GLOB_RECURSE headers *.hpp *.h *.cpp)
 add_library(linalg_project_library INTERFACE ${headers})
 
-add_executable(linalg_main solver.cpp)

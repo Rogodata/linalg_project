@@ -31,6 +31,18 @@ TEST(tridiagonal_solver_test, Test_2)
   }
 }
 
+TEST(tridiagonal_solver_test, Test_3)
+{
+  TridiagonalMatrix test_matrix2 = TridiagonalMatrix<double>(4, "test_1.txt");
+  std::vector<double> true_ansver_array = {1, 1, 1, 1}, test_ansver_array, d_array = {1 , 15, 9, 1};
+  test_ansver_array = tridiagonal_solution(d_array, test_matrix2);
+  for (size_t i = 0; i < 4; ++i)
+  {
+    std::cout << true_ansver_array[i] << " " << test_ansver_array[i] << std::endl;
+    ASSERT_NEAR(true_ansver_array[i], test_ansver_array[i], 1e-15);
+  }
+}
+
 int main(int argc, char **argv)
 {
   ::testing::InitGoogleTest(&argc, argv);
