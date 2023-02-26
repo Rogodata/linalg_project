@@ -24,13 +24,13 @@ public:
         row.push_back(number);
     }
 
-    T element(const long row_coor, const long col_coor) const{
+    T element(const unsigned long row_coor, const unsigned long col_coor) const{
         if(col_coor > *std::max_element(col.begin(), col.end()) or row_coor > row.size() - 1){
             return 0;
         }
         else{
-            long needed = row[row_coor], in_row = row[row_coor + 1] - row[row_coor];
-            for(long i = needed; i < needed + in_row; i++){
+            unsigned long needed = row[row_coor], in_row = row[row_coor + 1] - row[row_coor];
+            for(unsigned long i = needed; i < needed + in_row; i++){
                 if(col[i] == col_coor){
                     return val[i];
                 }
@@ -42,8 +42,8 @@ public:
     std::vector<T> dot(const std::vector<T> column_vector){
         std::vector<T> result;
         T sum = 0;
-        for (long i = 0; i < row.size() - 1; i++){
-            for(long j = row[i]; j < row[i + 1]; j++){
+        for (unsigned long i = 0; i < row.size() - 1; i++){
+            for(unsigned long j = row[i]; j < std::min(row[i + 1], column_vector.size()); j++){
                 sum += val[j] * column_vector[col[j]];
             }
             result.push_back(sum);
@@ -72,9 +72,10 @@ public:
     };
 
     std::vector<T> get_val() const {return val;} 
-    std::vector<T> get_col() const {return col;}
-    std::vector<T> get_row() const {return row;}
+    std::vector<unsigned long> get_col() const {return col;}
+    std::vector<unsigned long> get_row() const {return row;}
 
 private:
-    std::vector<T> val, col, row;
+    std::vector<T> val;
+    std::vector<unsigned long> col, row;
 };
