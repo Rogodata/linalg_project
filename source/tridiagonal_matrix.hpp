@@ -1,6 +1,5 @@
 #pragma once
 
-#include "tridiagonal_solver.hpp"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -56,7 +55,6 @@ public:
         this->n_parameter = size - 1;
         rows = rows_array;
     };
-
 
     void read_data(const std::string file_name)
     {

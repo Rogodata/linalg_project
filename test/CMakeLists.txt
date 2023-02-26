@@ -7,7 +7,7 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/testfiles/test_1.txt
      DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
  
 # Link runTests with what we want to test and the GTest and pthread library
-add_executable(runTests tridiagonal_test.cpp)
+add_executable(runTests csr_test.cpp)
 target_link_libraries(runTests ${GTEST_LIBRARIES} pthread)
 
 
