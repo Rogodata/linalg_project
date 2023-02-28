@@ -34,9 +34,10 @@ public:
 
     Dence<T> operator*(const Dence<T> matrix_)
     {
-        if (width != matrix.g_height())
+        if (width != matrix_.g_height())
         {
-            throw std::exception("матрицы должны быть подходящих размеров для перемножения");
+            throw std::runtime_error("wrong matrix sizes");
+            return {{}, 0, 0};
         }
         else
         {
@@ -50,7 +51,7 @@ public:
                 {
                     for (size_t k = 0; k < width; k++)
                     {
-                        sum += matrix[width * i + k] + matrix_.element(k, j);
+                        sum += matrix[width * i + k] * matrix_.element(k, j);
                     }
                     new_matrix.push_back(sum);
                     sum = 0;
@@ -60,17 +61,92 @@ public:
         }
     }
 
+    friend Dence<T> operator*(const T number, const Dence<T> matrix_)
+    {
+
+        std::vector<T> new_matrix;
+        for (size_t i = 0; i < matrix_.height; i++)
+        {
+            for (size_t j = 0; j < matrix_.width; j++)
+            {
+                new_matrix.push_back(matrix_.element(i, j) * number);
+            }
+        }
+        return {new_matrix, matrix_.height, matrix_.width};
+    }
+
+    Dence<T> operator*(const T number)
+    {
+
+        std::vector<T> new_matrix;
+        for (size_t i = 0; i < height; i++)
+        {
+            for (size_t j = 0; j < width; j++)
+            {
+                new_matrix.push_back(matrix[width * i + j] * number);
+            }
+        }
+        return {new_matrix, height, width};
+    }
+
+    Dence<T> operator+(const Dence<T> matrix_)
+    {
+        if (height != matrix_.g_height() or width != matrix_.g_width())
+        {
+            throw std::runtime_error("wrong matrix sizes");
+            return {{}, 0, 0};
+        }
+        else
+        {
+            T sum = 0;
+            std::vector<T> new_matrix;
+            for (size_t i = 0; i < height; i++)
+            {
+                for (size_t j = 0; j < width; j++)
+                {
+                    new_matrix.push_back(matrix[width * i + j] + matrix_.element(i, j));
+                }
+            }
+            return {new_matrix, height, width};
+        }
+    }
+
+    Dence<T> operator-(const Dence<T> matrix_)
+    {
+        if (height != matrix_.g_height() or width != matrix_.g_width())
+        {
+            throw std::runtime_error("wrong matrix sizes");
+            return {{}, 0, 0};
+        }
+        else
+        {
+            T sum = 0;
+            std::vector<T> new_matrix;
+            for (size_t i = 0; i < height; i++)
+            {
+                for (size_t j = 0; j < width; j++)
+                {
+                    new_matrix.push_back(matrix[width * i + j] - matrix_.element(i, j));
+                }
+            }
+            return {new_matrix, height, width};
+        }
+    }
+
     friend std::ostream &operator<<(std::ostream &os, const Dence<T> &matrix)
     {
-        for(size_t i = 0; i < matrix.g_height() - 1; i++){
-            for(size_t j = 0; j < matrix.g_width(); j++){
+        for (size_t i = 0; i < matrix.g_height() - 1; i++)
+        {
+            for (size_t j = 0; j < matrix.g_width(); j++)
+            {
                 os << matrix.element(i, j) << " ";
             }
             os << std::endl;
         }
-        for(size_t j = 0; j < matrix.g_width(); j++){
-                os << matrix.element(matrix.g_height() - 1, j) << " ";
-            }
+        for (size_t j = 0; j < matrix.g_width(); j++)
+        {
+            os << matrix.element(matrix.g_height() - 1, j) << " ";
+        }
         return os;
     };
 
