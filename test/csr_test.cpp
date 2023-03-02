@@ -11,12 +11,9 @@ TEST(csr_test, constructor_test_1)
     std::map<Coords, double> pairs = {{{0, 0}, 1}, {{0 , 1}, 2}, {{1, 1}, 4}, {{2, 1}, 2}, {{2, 2}, 6}};
     Csr_matrix<double> matrix = Csr_matrix(pairs);
     std::vector<double> true_val = {1, 2, 4, 2, 6}; 
-    std::vector<long> true_col = {0, 1, 1, 1, 2}, true_row = {0, 2, 3, 5};
-    for (long i = 0; i < 5; i ++)
-    {
-        ASSERT_EQ(true_val[i], matrix.get_val()[i]);
-        ASSERT_EQ(true_col[i], matrix.get_col()[i]);
-    }
+    std::vector<unsigned long> true_col = {0, 1, 1, 1, 2}, true_row = {0, 2, 3, 5};
+    ASSERT_EQ(true_col, matrix.get_col());
+    ASSERT_EQ(true_row, matrix.get_row());
     for (long i = 0; i < 4; i ++)
     {
         ASSERT_NEAR(true_val[i], matrix.get_val()[i], 1e-13);

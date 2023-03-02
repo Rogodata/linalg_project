@@ -19,6 +19,21 @@ public:
         return matrix[row_coord * width + col_coord];
     }
 
+    Dence(const size_t size)
+    {
+        // конструктор единичной матрицы
+        for (size_t j = 0; j < size * size; j++)
+        {
+            matrix.push_back(0);
+        }
+        width = size;
+        height = size;
+        for (size_t i = 0; i < size; i++)
+        {
+            matrix[i * width + i] = 1;
+        }
+    }
+
     Dence<T> transponse()
     {
         std::vector<T> new_matrix;
@@ -150,8 +165,30 @@ public:
         return os;
     };
 
+    std::vector<T> get_row(const size_t row_num, size_t begin = 0, size_t end = 0)
+    {
+        std::vector<T> result;
+        for (size_t i = begin; i < width - end; i++)
+        {
+            result.push_back(matrix[row_num * width + i]);
+        }
+        return result;
+    }
+
+    std::vector<T> get_col(const size_t col_num, size_t begin = 0, size_t end = 0)
+    {
+        std::vector<T> result;
+        for (size_t i = begin; i < height - end; i++)
+        {
+            result.push_back(matrix[i * width + col_num]);
+        }
+        return result;
+    }
+
     size_t g_height() const { return height; }
     size_t g_width() const { return width; }
+
+    std::vector<T> g_matrix() const { return matrix; }
 
 private:
     std::vector<T> matrix;
