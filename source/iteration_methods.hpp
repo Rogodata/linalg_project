@@ -49,7 +49,7 @@ std::vector<T> G_Z_meth(const Csr_matrix<T> &A, const T tolerance, const std::ve
     T sum_1 = 0, sum_2 = 0;
     while(tolerance < get_r_inf_norm(A, xk, b)){
         for(long long k = 0; k < x0.size(); k ++){
-            for(long long i = 0; i < k - 1; i ++)
+            for(long long i = 0; i < k; i ++)
                 sum_1 += A.element(k, i) * xk[i];
             for(long long i = k + 1; i < x0.size(); i ++)
                 sum_2 += A.element(k, i) * xk[i];
