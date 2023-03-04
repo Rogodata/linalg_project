@@ -8,7 +8,7 @@
 template<typename T>
 class Csr_matrix{
 public:
-    Csr_matrix(const std::map<Coords, T> pairs){
+    Csr_matrix(const std::map<Coords, T> &pairs){
         long max_str = pairs.end()->first.col;
         long prev = -1, now, number = 0; 
         for(auto j:pairs){
@@ -22,6 +22,12 @@ public:
             number ++;
         }
         row.push_back(number);
+    }
+
+    Csr_matrix(const std::vector<T> &values, const std::vector<unsigned long> &cols, const std::vector<unsigned long> &rows){
+        col = cols;
+        row = rows;
+        val = values;
     }
 
     T element(const unsigned long row_coor, const unsigned long col_coor) const{
@@ -39,7 +45,7 @@ public:
         }
     }
 
-    std::vector<T> dot(const std::vector<T> column_vector){
+    std::vector<T> dot(const std::vector<T> &column_vector){
         std::vector<T> result;
         T sum = 0;
         for (unsigned long i = 0; i < row.size() - 1; i++){
@@ -50,6 +56,17 @@ public:
             sum = 0;
         }
         return result;
+    }
+
+    Csr_matrix<T> operator*(const T number)
+    {
+
+        std::vector<T> new_val;
+        for (size_t j = 0; j < val.size(); j++)
+        {
+            new_val.push_back(val[j] * number);
+        }
+        return {new_val, col, row};
     }
 
     friend std::ostream &operator<<(std::ostream &os, const Csr_matrix<T> &matrix)

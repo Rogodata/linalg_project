@@ -7,14 +7,14 @@ template <typename T>
 class Dence
 {
 public:
-    Dence(const std::vector<T> matrix_array, const size_t height_, const size_t width_)
+    Dence(const std::vector<T> &matrix_array, const size_t height_, const size_t width_)
     {
         matrix = matrix_array;
         height = height_;
         width = width_;
     }
 
-    T element(size_t row_coord, size_t col_coord) const
+    T element(const size_t row_coord, const size_t col_coord) const
     {
         return matrix[row_coord * width + col_coord];
     }
@@ -47,7 +47,7 @@ public:
         return {new_matrix, width, height};
     }
 
-    Dence<T> operator*(const Dence<T> matrix_)
+    Dence<T> operator*(const Dence<T> &matrix_)
     {
         if (width != matrix_.g_height())
         {
@@ -76,7 +76,7 @@ public:
         }
     }
 
-    friend Dence<T> operator*(const T number, const Dence<T> matrix_)
+    friend Dence<T> operator*(const T number, const Dence<T> &matrix_)
     {
 
         std::vector<T> new_matrix;
@@ -104,7 +104,7 @@ public:
         return {new_matrix, height, width};
     }
 
-    Dence<T> operator+(const Dence<T> matrix_)
+    Dence<T> operator+(const Dence<T> &matrix_)
     {
         if (height != matrix_.g_height() or width != matrix_.g_width())
         {
@@ -126,7 +126,7 @@ public:
         }
     }
 
-    Dence<T> operator-(const Dence<T> matrix_)
+    Dence<T> operator-(const Dence<T> &matrix_)
     {
         if (height != matrix_.g_height() or width != matrix_.g_width())
         {
