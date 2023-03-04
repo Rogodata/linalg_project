@@ -83,12 +83,13 @@ std::vector<Type> operator*(const std::vector<Type>& a, const Type &c) {
 template <typename T>
 std::vector<T> MPI_meth(const Csr_matrix<T> &A, const T tolerance, const std::vector<T> &b, const std::vector<T> &x0, const T tau)
 {   
+    long long counter = 0;
     std::vector<T> result = x0, r = A.dot(result) - b;
     while(tolerance < get_r_3_norm<T>(A, result, b)){
-        
+        counter ++;
         result = result - r*tau;
         r = A.dot(result) - b;
-        
+        std::cout << counter << std::endl;
     }
     return result;
 }
