@@ -49,7 +49,7 @@ public:
         std::vector<T> result;
         T sum = 0;
         for (unsigned long i = 0; i < row.size() - 1; i++){
-            for(unsigned long j = row[i]; j < std::min(row[i + 1], column_vector.size()); j++){
+            for(unsigned long j = row[i]; j < row[i + 1]; j++){
                 sum += val[j] * column_vector[col[j]];
             }
             result.push_back(sum);

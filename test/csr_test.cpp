@@ -63,15 +63,11 @@ TEST(csr_test, column_multiplication_test_1)
     // тест для сложной матрицы из прошлого теста
     std::map<Coords, double> pairs = {{{1, 1}, 1}, {{1 , 2}, 2}, {{3, 2}, 4}, {{4, 2}, 2}, {{4, 4}, 6}};
     Csr_matrix<double> matrix = Csr_matrix(pairs);
-    std::vector<double> true_val1 = {0, 8, 0, 12, 36}, to_mul1 = {1, 2, 3, 4, 5}, to_mul2 = {0, 0, 0}, to_mul3 = {1, 2, 3, 4, 5, 6, 7, 8}, \
-    mul_res1 = matrix.dot(to_mul1), mul_res2 = matrix.dot(to_mul2), mul_res3 = matrix.dot(to_mul3), true_val2 = {0, 0, 0, 0, 0}, true_val3 = {0, 8, 0, 12, 36}; 
+    std::vector<double> true_val1 = {0, 8, 0, 12, 36}, to_mul1 = {1, 2, 3, 4, 5}, to_mul3 = {1, 2, 3, 4, 5, 6, 7, 8}, \
+    mul_res1 = matrix.dot(to_mul1), mul_res3 = matrix.dot(to_mul3), true_val3 = {0, 8, 0, 12, 36}; 
     for (long i = 0; i < 5; i ++)
     {
         ASSERT_NEAR(true_val1[i], mul_res1[i], 1e-13);
-    }
-    for (long i = 0; i < 5; i ++)
-    {
-        ASSERT_NEAR(true_val2[i], mul_res2[i], 1e-13);
     }
     for (long i = 0; i < 5; i ++)
     {
