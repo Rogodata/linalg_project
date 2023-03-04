@@ -45,7 +45,7 @@ public:
         }
     }
 
-    std::vector<T> dot(const std::vector<T> &column_vector){
+    std::vector<T> dot(const std::vector<T> &column_vector) const{
         std::vector<T> result;
         T sum = 0;
         for (unsigned long i = 0; i < row.size() - 1; i++){
