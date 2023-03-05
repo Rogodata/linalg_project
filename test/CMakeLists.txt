@@ -11,8 +11,11 @@ add_executable(runTests csr_test.cpp)
 target_link_libraries(runTests ${GTEST_LIBRARIES} pthread)
 
 
+add_executable(dence_test dence_test.cpp)
+target_link_libraries(dence_test ${GTEST_LIBRARIES} pthread)
 
-
+add_executable(sr1_task4 task_4.cpp)
+target_link_libraries(sr1_task4 ${GTEST_LIBRARIES} pthread)
 
 
 
